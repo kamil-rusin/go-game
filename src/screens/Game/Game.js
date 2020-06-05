@@ -1,11 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import Board from './_components/Board/Board';
 
 const Game = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <Text>Board</Text>
+        <Board />
       </View>
     </SafeAreaView>
   );
