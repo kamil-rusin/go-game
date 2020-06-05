@@ -1,2 +1,2 @@
-# go-game
-Game of Go - React Native App
+# Game of Go
+React Native App

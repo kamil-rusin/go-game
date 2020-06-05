@@ -9,6 +9,13 @@ const HomeScreen = () => {
   const dispatch = useDispatch()
   const reduxState = useSelector((state) => state)
   const { navigate } = useNavigation()
+
+  const Weiqi = require('weiqi').default;
+  var game = Weiqi.createGame(9);
+  console.log(game);
+  game = Weiqi.play(game, 'black', [2,2]);
+  console.log(game);
+
   const props = {
     login: compose(dispatch, login),
     navigate,
