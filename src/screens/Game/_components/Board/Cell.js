@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 const Cell = (props) => {
   const color = () => {
@@ -10,7 +10,12 @@ const Cell = (props) => {
     } else return 'transparent';
   };
 
-  return <View style={[styles.mainView, { backgroundColor: color() }]} />;
+  return (
+    <TouchableOpacity
+      onPress={() => props.onPress(props.x, props.y)}
+      style={[styles.mainView, { backgroundColor: color() }]}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

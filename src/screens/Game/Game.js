@@ -6,7 +6,7 @@ const Game = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <Board />
+        <Board goEngine={props.goEngine} />
       </View>
     </SafeAreaView>
   );
