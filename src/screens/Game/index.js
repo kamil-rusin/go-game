@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import Snackbar from 'react-native-snackbar';
 import Game from './Game';
 import GoEngine from './_components/GoEngine';
 import Constants from './_constants/constants';
@@ -15,8 +16,15 @@ const GameScreen = () => {
   );
 
   const placeStone = useCallback((x, y) => {
-    setBoardState(goEngine.placeStoneAndReturnBoardState(x, y));
-    setCurrentPlayer(goEngine.getCurrentPlayer());
+    try {
+      setBoardState(goEngine.placeStoneAndReturnBoardState(x, y));
+      setCurrentPlayer(goEngine.getCurrentPlayer());
+    } catch (error) {
+      Snackbar.show({
+        text: error.message,
+        duration: Snackbar.LENGTH_SHORT
+      });
+    }
   }, []);
 
   const passTurn = useCallback(() => {
