@@ -1,14 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import Cell from './Cell';
-
-const BOARD_SIZE = 9;
-const CELL_SIZE = 24;
-const BOARD_WIDTH = CELL_SIZE * BOARD_SIZE;
+import Constants from '../../_constants/constants';
 
 const Board = (props) => {
   const { goEngine } = props;
   const [boardState, setBoardState] = useState(goEngine.serializeBoardState());
+  const boardSize = goEngine.getBoardSize();
 
   const placeStone = useCallback(
     (x, y) => {
@@ -18,8 +16,8 @@ const Board = (props) => {
   );
 
   const renderBoard = useCallback(() => {
-    return Array.apply(null, Array(BOARD_SIZE)).map((el, rowIdx) => {
-      let cellList = Array.apply(null, Array(BOARD_SIZE)).map(
+    return Array.apply(null, Array(boardSize)).map((el, rowIdx) => {
+      let cellList = Array.apply(null, Array(boardSize)).map(
         (element, colIdx) => {
           return (
             <Cell
@@ -37,21 +35,21 @@ const Board = (props) => {
         <View
           key={rowIdx}
           style={{
-            width: BOARD_WIDTH,
-            height: CELL_SIZE,
+            width: Constants.CELL_SIZE * boardSize,
+            height: Constants.CELL_SIZE,
             flexDirection: 'row'
           }}>
           {cellList}
         </View>
       );
     });
-  }, [boardState, placeStone]);
+  }, [boardSize, boardState, placeStone]);
 
   return (
     <View
       style={{
-        width: BOARD_WIDTH,
-        height: BOARD_WIDTH,
+        width: Constants.CELL_SIZE * boardSize,
+        height: Constants.CELL_SIZE * boardSize,
         backgroundColor: '#888888',
         flexDirection: 'column'
       }}>

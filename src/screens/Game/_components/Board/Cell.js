@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import Constants from '../../_constants/constants';
 
 const Cell = (props) => {
   const color = () => {
@@ -20,8 +21,8 @@ const Cell = (props) => {
 
 const styles = StyleSheet.create({
   mainView: {
-    width: 24,
-    height: 24,
+    width: Constants.CELL_SIZE,
+    height: Constants.CELL_SIZE,
     borderRadius: 15
   }
 });
