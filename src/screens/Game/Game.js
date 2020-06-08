@@ -1,12 +1,31 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import Board from './_components/Board/Board';
 
 const Game = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <Board goEngine={props.goEngine} />
+        <Text style={styles.text}>Current turn: {props.currentPlayer}</Text>
+        <Board
+          goEngine={props.goEngine}
+          placeStone={props.placeStone}
+          boardState={props.boardState}
+        />
+        <View style={styles.buttonRow}>
+          <TouchableOpacity onPress={props.onFinish} style={styles.button}>
+            <Text style={styles.buttonText}>Finish</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={props.passTurn} style={styles.button}>
+            <Text style={styles.buttonText}>Pass</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -20,6 +39,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  text: {
+    fontSize: 17,
+    margin: 5
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  button: {
+    backgroundColor: '#2196F3',
+    margin: 10,
+    padding: 5
+  },
+  buttonText: {
+    color: '#fff'
   }
 });
 

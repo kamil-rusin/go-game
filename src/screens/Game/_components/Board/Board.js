@@ -1,19 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import Cell from './Cell';
 import Constants from '../../_constants/constants';
 
 const Board = (props) => {
-  const { goEngine } = props;
-  const [boardState, setBoardState] = useState(goEngine.serializeBoardState());
+  const { goEngine, boardState, placeStone } = props;
   const boardSize = goEngine.getBoardSize();
-
-  const placeStone = useCallback(
-    (x, y) => {
-      setBoardState(goEngine.placeStoneAndReturnBoardState(x, y));
-    },
-    [goEngine]
-  );
 
   const renderBoard = useCallback(() => {
     return Array.apply(null, Array(boardSize)).map((el, rowIdx) => {
