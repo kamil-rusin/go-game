@@ -1,11 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import Board from './_components/Board/Board';
 
-const Home = (props) => {
+const Game = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <Button onPress={props.onPlay} title={'Play'} />
+        <Board goEngine={props.goEngine} />
       </View>
     </SafeAreaView>
   );
@@ -22,4 +23,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default Game;
