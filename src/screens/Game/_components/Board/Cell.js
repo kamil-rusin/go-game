@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import Constants from '../../_constants/constants';
 
 const Cell = (props) => {
@@ -12,18 +12,27 @@ const Cell = (props) => {
   };
 
   return (
-    <TouchableOpacity
-      onPress={() => props.onPress(props.x, props.y)}
-      style={[styles.mainView, { backgroundColor: color() }]}
-    />
+    <ImageBackground source={Constants.FULL_SQUARE_PATH} style={styles.cell}>
+      <TouchableOpacity
+        onPress={() => props.onPress(props.x, props.y)}
+        style={[styles.mainView, { backgroundColor: color() }]}
+      />
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  mainView: {
+  cell: {
     width: Constants.CELL_SIZE,
     height: Constants.CELL_SIZE,
-    borderRadius: 15
+    resizeMode: 'cover',
+    justifyContent: 'center'
+  },
+  mainView: {
+    height: '80%',
+    width: '80%',
+    borderRadius: 15,
+    alignSelf: 'center'
   }
 });
 
