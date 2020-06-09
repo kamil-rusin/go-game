@@ -14,6 +14,8 @@ const GameScreen = () => {
   const [currentPlayer, setCurrentPlayer] = useState(
     goEngine.getCurrentPlayer()
   );
+  const [isOver, setIsOver] = useState(false);
+  const [result, setResult] = useState(null);
 
   const placeStone = useCallback((x, y) => {
     try {
@@ -30,20 +32,27 @@ const GameScreen = () => {
   const passTurn = useCallback(() => {
     goEngine.passTurn();
     setCurrentPlayer(goEngine.getCurrentPlayer());
+    goEngine.isOver() && onFinish();
   }, []);
 
   const onFinish = useCallback(() => {
-    console.log(goEngine.computeScore(Constants.KOMI));
+    setIsOver(true);
+    let score = goEngine.computeScore(Constants.KOMI);
+    score < 0
+      ? setResult('white - ' + Math.abs(score))
+      : setResult('black - ' + score);
   }, []);
 
   return (
     <Game
-      goEngine={goEngine}
+      boardState={boardState}
       currentPlayer={currentPlayer}
+      goEngine={goEngine}
+      isOver={isOver}
       onFinish={onFinish}
       placeStone={placeStone}
       passTurn={passTurn}
-      boardState={boardState}
+      result={result}
     />
   );
 };

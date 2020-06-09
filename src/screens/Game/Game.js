@@ -12,17 +12,27 @@ const Game = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
-        <Text style={styles.text}>Current turn: {props.currentPlayer}</Text>
+        {props.isOver ? (
+          <Text style={styles.text}>Winner is: {props.result}</Text>
+        ) : (
+          <Text style={styles.text}>Current turn: {props.currentPlayer}</Text>
+        )}
         <Board
           goEngine={props.goEngine}
           placeStone={props.placeStone}
           boardState={props.boardState}
         />
         <View style={styles.buttonRow}>
-          <TouchableOpacity onPress={props.onFinish} style={styles.button}>
+          <TouchableOpacity
+            disabled={props.isOver}
+            onPress={props.onFinish}
+            style={styles.button}>
             <Text style={styles.buttonText}>Finish</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={props.passTurn} style={styles.button}>
+          <TouchableOpacity
+            disabled={props.isOver}
+            onPress={props.passTurn}
+            style={styles.button}>
             <Text style={styles.buttonText}>Pass</Text>
           </TouchableOpacity>
         </View>
