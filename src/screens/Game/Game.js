@@ -18,7 +18,7 @@ const Game = (props) => {
           <Text style={styles.text}>Current turn: {props.currentPlayer}</Text>
         )}
         <Board
-          goEngine={props.goEngine}
+          boardDimension={props.boardDimension}
           placeStone={props.placeStone}
           boardState={props.boardState}
         />

@@ -12,7 +12,9 @@ const Cell = (props) => {
   };
 
   return (
-    <ImageBackground source={Constants.FULL_SQUARE_PATH} style={styles.cell}>
+    <ImageBackground
+      source={Constants.FULL_SQUARE_PATH}
+      style={[styles.cell, { width: props.cellSize, height: props.cellSize }]}>
       <TouchableOpacity
         onPress={() => props.onPress(props.x, props.y)}
         style={[styles.mainView, { backgroundColor: color() }]}
@@ -23,8 +25,6 @@ const Cell = (props) => {
 
 const styles = StyleSheet.create({
   cell: {
-    width: Constants.CELL_SIZE,
-    height: Constants.CELL_SIZE,
     resizeMode: 'cover',
     justifyContent: 'center'
   },

@@ -1,23 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { View } from 'react-native';
 import Cell from './Cell';
 import Constants from '../../_constants/constants';
 
 const Board = (props) => {
-  const { goEngine, boardState, placeStone } = props;
-  const boardSize = goEngine.getBoardSize();
+  const { boardDimension, boardState, placeStone } = props;
+
+  const cellSize = useMemo(() => {
+    return Constants.BOARD_SIZE / boardDimension;
+  }, [boardDimension]);
 
   const renderBoard = useCallback(() => {
-    return Array.apply(null, Array(boardSize)).map((el, rowIdx) => {
-      let cellList = Array.apply(null, Array(boardSize)).map(
+    return Array.apply(null, Array(boardDimension)).map((el, rowIdx) => {
+      let cellList = Array.apply(null, Array(boardDimension)).map(
         (element, colIdx) => {
           return (
             <Cell
+              boardDimension={boardDimension}
               key={colIdx}
               x={rowIdx}
               y={colIdx}
               value={boardState[rowIdx][colIdx]}
               onPress={placeStone}
+              cellSize={cellSize}
             />
           );
         }
@@ -27,22 +32,22 @@ const Board = (props) => {
         <View
           key={rowIdx}
           style={{
-            width: Constants.CELL_SIZE * boardSize,
-            height: Constants.CELL_SIZE,
+            width: cellSize * boardDimension,
+            height: cellSize,
             flexDirection: 'row'
           }}>
           {cellList}
         </View>
       );
     });
-  }, [boardSize, boardState, placeStone]);
+  }, [boardDimension, boardState, cellSize, placeStone]);
 
   return (
     <View
       style={{
-        width: Constants.CELL_SIZE * boardSize,
-        height: Constants.CELL_SIZE * boardSize,
-        backgroundColor: '#888888',
+        width: cellSize * boardDimension,
+        height: cellSize * boardDimension,
+        backgroundColor: 'red',
         flexDirection: 'column'
       }}>
       {renderBoard()}

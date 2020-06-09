@@ -5,8 +5,9 @@ import GoEngine from './_components/GoEngine';
 import Constants from './_constants/constants';
 
 const GameScreen = () => {
+  const boardDimension = 13;
   const goEngine = new GoEngine();
-  goEngine.createGame(9);
+  goEngine.createGame(boardDimension);
   goEngine.placeStone(2, 2);
   goEngine.placeStone(4, 2);
 
@@ -45,6 +46,7 @@ const GameScreen = () => {
 
   return (
     <Game
+      boardDimension={boardDimension}
       boardState={boardState}
       currentPlayer={currentPlayer}
       goEngine={goEngine}
