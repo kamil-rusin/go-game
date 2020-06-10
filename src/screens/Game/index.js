@@ -5,8 +5,8 @@ import GoEngine from './_components/GoEngine';
 import Constants from './_constants/constants';
 
 const GameScreen = () => {
-  const boardDimension = 13;setGoEngine
-  const [goEngine, ] = useState(new GoEngine(boardDimension));
+  const boardDimension = 13;
+  const [goEngine, setGoEngine] = useState(new GoEngine(boardDimension));
   const [boardState, setBoardState] = useState(goEngine.serializeBoardState());
   const [currentPlayer, setCurrentPlayer] = useState(
     goEngine.getCurrentPlayer()
