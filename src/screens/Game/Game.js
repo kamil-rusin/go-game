@@ -25,12 +25,6 @@ const Game = (props) => {
         <View style={styles.buttonRow}>
           <TouchableOpacity
             disabled={props.isOver}
-            onPress={props.onFinish}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Finish</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            disabled={props.isOver}
             onPress={props.passTurn}
             style={styles.button}>
             <Text style={styles.buttonText}>Pass</Text>

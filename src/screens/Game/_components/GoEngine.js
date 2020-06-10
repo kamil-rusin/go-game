@@ -1,8 +1,9 @@
 const Weiqi = require('weiqi').default;
 
 export default class GoEngine {
-  constructor() {
+  constructor(dimension) {
     this.game = null;
+    this.createGame(dimension);
   }
 
   getGame() {

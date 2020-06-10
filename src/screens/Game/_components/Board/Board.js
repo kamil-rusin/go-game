@@ -47,7 +47,7 @@ const Board = (props) => {
       style={{
         width: cellSize * boardDimension,
         height: cellSize * boardDimension,
-        backgroundColor: 'red',
+        backgroundColor: '#dcb35c',
         flexDirection: 'column'
       }}>
       {renderBoard()}
