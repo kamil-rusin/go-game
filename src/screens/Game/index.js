@@ -33,8 +33,8 @@ const GameScreen = (props) => {
     setIsOver(true);
     let score = goEngine.computeScore(Constants.KOMI);
     score < 0
-      ? setResult('white - ' + Math.abs(score))
-      : setResult('black - ' + score);
+      ? setResult('white: ' + Math.abs(score))
+      : setResult('black: ' + score);
   }, [goEngine]);
 
   const passTurn = useCallback(() => {

@@ -13,7 +13,7 @@ const Game = (props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
         {props.isOver ? (
-          <Text style={styles.text}>Winner is: {props.result}</Text>
+          <Text style={styles.text}>Winner is {props.result}</Text>
         ) : (
           <Text style={styles.text}>Current turn: {props.currentPlayer}</Text>
         )}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
-    margin: 5
+    margin: 10
   },
   buttonRow: {
     flexDirection: 'row',
