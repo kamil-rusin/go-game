@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import Cell from './Cell';
 import Constants from '../../_constants/constants';
@@ -10,7 +10,7 @@ const Board = (props) => {
     return Constants.BOARD_SIZE / boardDimension;
   }, [boardDimension]);
 
-  const renderBoard = useCallback(() => {
+  const board = useMemo(() => {
     return Array.apply(null, Array(boardDimension)).map((el, rowIdx) => {
       let cellList = Array.apply(null, Array(boardDimension)).map(
         (element, colIdx) => {
@@ -50,7 +50,7 @@ const Board = (props) => {
         backgroundColor: '#dcb35c',
         flexDirection: 'column'
       }}>
-      {renderBoard()}
+      {board}
     </View>
   );
 };
