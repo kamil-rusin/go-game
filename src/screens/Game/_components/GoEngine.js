@@ -1,8 +1,9 @@
 const Weiqi = require('weiqi').default;
 
 export default class GoEngine {
-  constructor() {
+  constructor(dimension) {
     this.game = null;
+    this.createGame(dimension);
   }
 
   getGame() {
@@ -43,12 +44,16 @@ export default class GoEngine {
     const boardArray = Array.apply(null, Array(size)).map(() =>
       Array(size).fill('.')
     );
-    const boardState = this.game.get('board').get('stones');
+    const boardState = this.getBoardState();
     boardState.forEach((stoneColor, position) => {
       const character = stoneColor === 'black' ? 'x' : 'o';
       boardArray[position.get('i')][position.get('j')] = character;
     });
     return boardArray;
+  };
+
+  getBoardState = () => {
+    return this.game.get('board').get('stones');
   };
 
   getBoardSize() {
