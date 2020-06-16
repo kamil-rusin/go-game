@@ -17,7 +17,7 @@ const Board = (props) => {
           return (
             <Cell
               boardDimension={boardDimension}
-              key={colIdx}
+              key={`${rowIdx}${colIdx}`}
               x={rowIdx}
               y={colIdx}
               value={boardState[rowIdx][colIdx]}

@@ -2,6 +2,10 @@ import React, { useMemo } from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import Constants from '../../_constants/constants';
 
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.value === nextProps.value;
+};
+
 const Cell = (props) => {
   const stoneColor = useMemo(() => {
     if (props.value === 'x') {
@@ -68,4 +72,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Cell;
+export default React.memo(Cell, areEqual);
