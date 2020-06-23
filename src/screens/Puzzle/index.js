@@ -43,6 +43,8 @@ const PuzzleScreen = props => {
   );
   const [isLoading, setIsLoading] = useState(true);
   const [puzzle, setPuzzle] = useState(null);
+  const [possibleMoves, setPossibleMoves] = useState([]);
+  const [sequences, setSequences] = useState([]);
 
   useEffect(() => {
     RNFS.readFileAssets('xl02.sgf').then(res => {
@@ -69,6 +71,15 @@ const PuzzleScreen = props => {
         }
       }
 
+      let tempSequences = _get(collection, 'gameTrees[0].sequences', []);
+      let tempPossibleMoves = [];
+      tempSequences.forEach(seq => {
+        let move = _get(seq, 'nodes[0]', null);
+        move && tempPossibleMoves.push(move);
+      });
+
+      setSequences(tempSequences);
+      setPossibleMoves(tempPossibleMoves);
       setGoEngine(engine);
       setBoardDimension(dimension);
       setBoardState(engine.serializeBoardState());
@@ -76,11 +87,34 @@ const PuzzleScreen = props => {
     });
   }, []);
 
+  const isPossibleMove = useCallback(
+    (x, y) => {
+      let turn = currentPlayer === 'black' ? 'B' : 'W';
+      let possible = false;
+      possibleMoves.forEach(move => {
+        if (
+          convertCharToNumber(move[turn].charAt(1)) === x &&
+          convertCharToNumber(move[turn].charAt(0)) === y
+        )
+          possible = true;
+      });
+      return possible;
+    },
+    [currentPlayer, possibleMoves]
+  );
+
   const placeStone = useCallback(
     (x, y) => {
       try {
-        setBoardState(goEngine.placeStoneAndReturnBoardState(x, y));
-        setCurrentPlayer(goEngine.getCurrentPlayer());
+        if (isPossibleMove(x, y)) {
+          setBoardState(goEngine.placeStoneAndReturnBoardState(x, y));
+          setCurrentPlayer(goEngine.getCurrentPlayer());
+        } else {
+          Snackbar.show({
+            text: 'Wrong. Try again!',
+            duration: Snackbar.LENGTH_SHORT
+          });
+        }
       } catch (error) {
         Snackbar.show({
           text: error.message,
@@ -88,7 +122,7 @@ const PuzzleScreen = props => {
         });
       }
     },
-    [goEngine]
+    [goEngine, isPossibleMove]
   );
 
   return (
