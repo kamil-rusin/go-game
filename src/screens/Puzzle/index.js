@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Snackbar from 'react-native-snackbar';
-import Puzzle from './Puzzle';
-import GoEngine from '../_components/GoEngine';
 import RNFS from 'react-native-fs';
 import * as sgf from 'smartgame';
+import _get from 'lodash/get';
+import Puzzle from './Puzzle';
+import GoEngine from '../_components/GoEngine';
 
 const getCircularReplacer = () => {
   const seen = new WeakSet();
@@ -16,6 +17,21 @@ const getCircularReplacer = () => {
     }
     return value;
   };
+};
+
+const convertCharToNumber = character =>
+  character.toLowerCase().charCodeAt(0) - 97;
+
+const convertDimensionStringToNumber = size => {
+  switch (size) {
+    case 'XL':
+      return 19;
+    case 'L':
+      return 13;
+    case 'M':
+    default:
+      return 9;
+  }
 };
 
 const PuzzleScreen = props => {
@@ -33,12 +49,29 @@ const PuzzleScreen = props => {
       let collection = sgf.parse(res);
       setPuzzle(collection);
       console.log(JSON.stringify(collection, getCircularReplacer(), 1));
-      let dimension = collection.gameTrees[0].nodes[0].GN;
-      console.log(dimension);
-      let engine = new GoEngine(19);
+      let dimension = convertDimensionStringToNumber(
+        _get(collection, 'gameTrees[0].nodes[0].GN', 'M')
+      );
+      let blackStones = _get(collection, 'gameTrees[0].nodes[0].AB', []);
+      let whiteStones = _get(collection, 'gameTrees[0].nodes[0].AW', []);
+      let engine = new GoEngine(dimension);
+
+      if (blackStones.length === whiteStones.length) {
+        for (let i = 0; i < blackStones.length; i++) {
+          engine.placeStone(
+            convertCharToNumber(blackStones[i].charAt(1)),
+            convertCharToNumber(blackStones[i].charAt(0))
+          );
+          engine.placeStone(
+            convertCharToNumber(whiteStones[i].charAt(1)),
+            convertCharToNumber(whiteStones[i].charAt(0))
+          );
+        }
+      }
+
       setGoEngine(engine);
+      setBoardDimension(dimension);
       setBoardState(engine.serializeBoardState());
-      dimension === 'XL' && setBoardDimension(19);
       setIsLoading(false);
     });
   }, []);
