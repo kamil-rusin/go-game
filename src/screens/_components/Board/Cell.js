@@ -6,7 +6,7 @@ const areEqual = (prevProps, nextProps) => {
   return prevProps.value === nextProps.value;
 };
 
-const Cell = (props) => {
+const Cell = props => {
   const stoneColor = useMemo(() => {
     if (props.value === 'x') {
       return '#000';

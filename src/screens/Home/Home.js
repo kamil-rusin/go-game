@@ -13,7 +13,7 @@ const Home = props => {
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
         <Button onPress={props.onPlay} title={'Player vs Player'} />
-        <Button onPress={props.testPuzzle} title={'Puzzles'} />
+        <Button onPress={props.onPuzzle} title={'Puzzles'} />
         <Text style={styles.text}>Choose board dimension:</Text>
         <View style={styles.buttonRow}>
           <TouchableOpacity

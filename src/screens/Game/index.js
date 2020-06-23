@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import Snackbar from 'react-native-snackbar';
 import Game from './Game';
-import GoEngine from './_components/GoEngine';
-import Constants from './_constants/constants';
+import GoEngine from '../_components/GoEngine';
+import Constants from '../_constants/constants';
 
-const GameScreen = (props) => {
+const GameScreen = props => {
   const { boardDimension } = props.route.params;
   const [goEngine, setGoEngine] = useState(new GoEngine(boardDimension));
   const [boardState, setBoardState] = useState(goEngine.serializeBoardState());

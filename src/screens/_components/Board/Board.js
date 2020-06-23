@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import Cell from './Cell';
 import Constants from '../../_constants/constants';
 
-const Board = (props) => {
+const Board = props => {
   const { boardDimension, boardState, placeStone } = props;
 
   const cellSize = useMemo(() => {
