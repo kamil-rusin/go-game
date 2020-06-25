@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import Constants from '../../_constants/constants';
 
 const areEqual = (prevProps, nextProps) => {
@@ -51,10 +51,7 @@ const Cell = props => {
           transform: [{ rotate: imageDetails.rotation }]
         }
       ]}>
-      <TouchableOpacity
-        onPress={() => props.onPress(props.x, props.y)}
-        style={[styles.mainView, { backgroundColor: stoneColor }]}
-      />
+      <View style={[styles.mainView, { backgroundColor: stoneColor }]} />
     </ImageBackground>
   );
 };
