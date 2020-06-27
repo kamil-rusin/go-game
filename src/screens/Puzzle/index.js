@@ -94,14 +94,9 @@ const PuzzleScreen = props => {
 
   const findAndSetCurrentNode = useCallback(
     move => {
-      console.log('findandsetcurrentnode');
       let node = null;
       sequences.forEach(seq => {
-        console.log('seq.nodes[0] ' + JSON.stringify(seq.nodes[0]));
-        console.log('move ' + JSON.stringify(move));
         if (seq.nodes[0] === move) {
-          console.log('seq.nodes[0] === move: TRUE');
-          console.log('seq.nodes: ' + JSON.stringify(seq.nodes));
           node = seq.nodes;
           setCurrentNode(seq.nodes);
           setNodeIterator(0);
@@ -112,35 +107,46 @@ const PuzzleScreen = props => {
     [sequences]
   );
 
-  const setNewPossibleMoves = useCallback((node, iterator) => {
-    console.log('currentNode: ' + JSON.stringify(node));
-    const nextMove = node[iterator + 1];
-    console.log('nextmove: ' + JSON.stringify(nextMove));
-    console.log('nodeIterator: ' + iterator);
-    if (!isNil(nextMove)) {
-      console.log('jestem w not null');
-      let moves = [];
-      moves.push(nextMove);
-      console.log([...moves]);
-      setPossibleMoves([...moves]);
-      setNodeIterator(iterator + 1);
-    } else setPossibleMoves([]);
-    //TODO: add changing sequences in else, and setting nodeIterator to 0
-  }, []);
+  const setNewPossibleMoves = useCallback(
+    (node, iterator) => {
+      const nextMove = node[iterator + 1];
+      if (!isNil(nextMove)) {
+        let moves = [];
+        moves.push(nextMove);
+        setPossibleMoves([...moves]);
+        setNodeIterator(iterator + 1);
+      } else {
+        if (!isNil(sequences)) {
+          sequences.forEach(seq => {
+            if (seq.nodes[0] === node[0]) {
+              if (_get(seq, 'sequences', null)) {
+                let tempPossibleMoves = [];
+                seq.sequences.forEach(sequence => {
+                  let move = _get(sequence, 'nodes[0]', null);
+                  move && tempPossibleMoves.push(move);
+                });
+                setSequences(seq.sequences);
+                setPossibleMoves(tempPossibleMoves);
+                setNodeIterator(0);
+              } else setPossibleMoves([]);
+            }
+          });
+        } else setPossibleMoves([]);
+      }
+    },
+    [sequences]
+  );
 
   const isPossibleMove = useCallback(
     (x, y) => {
       let turn = currentPlayer === 'black' ? 'B' : 'W';
       let possible = false;
-      console.log('Possible moves: ' + JSON.stringify(possibleMoves));
-      console.log('nodeIterator: ' + nodeIterator);
       possibleMoves.forEach(move => {
         if (
           convertCharToNumber(move[turn].charAt(1)) === x &&
           convertCharToNumber(move[turn].charAt(0)) === y
         ) {
           possible = true;
-          console.log('nodeIterator ' + nodeIterator);
           if (nodeIterator === 0) {
             let node = findAndSetCurrentNode(move);
             setNewPossibleMoves(node, nodeIterator);
