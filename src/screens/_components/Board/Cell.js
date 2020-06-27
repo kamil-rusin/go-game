@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import Constants from '../../_constants/constants';
 
 const areEqual = (prevProps, nextProps) => {
   return prevProps.value === nextProps.value;
 };
 
-const Cell = (props) => {
+const Cell = props => {
   const stoneColor = useMemo(() => {
     if (props.value === 'x') {
       return '#000';
@@ -51,10 +51,7 @@ const Cell = (props) => {
           transform: [{ rotate: imageDetails.rotation }]
         }
       ]}>
-      <TouchableOpacity
-        onPress={() => props.onPress(props.x, props.y)}
-        style={[styles.mainView, { backgroundColor: stoneColor }]}
-      />
+      <View style={[styles.mainView, { backgroundColor: stoneColor }]} />
     </ImageBackground>
   );
 };

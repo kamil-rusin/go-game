@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import Board from './_components/Board/Board';
+import Board from '../_components/Board/Board';
 
-const Game = (props) => {
+const Game = props => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>

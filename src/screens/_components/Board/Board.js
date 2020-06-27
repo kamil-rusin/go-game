@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import Cell from './Cell';
 import Constants from '../../_constants/constants';
 
-const Board = (props) => {
+const Board = props => {
   const { boardDimension, boardState, placeStone } = props;
 
   const cellSize = useMemo(() => {
@@ -15,15 +15,18 @@ const Board = (props) => {
       let cellList = Array.apply(null, Array(boardDimension)).map(
         (element, colIdx) => {
           return (
-            <Cell
-              boardDimension={boardDimension}
-              key={`${rowIdx}${colIdx}`}
-              x={rowIdx}
-              y={colIdx}
-              value={boardState[rowIdx][colIdx]}
-              onPress={placeStone}
-              cellSize={cellSize}
-            />
+            <TouchableOpacity
+              key={`T' + ${rowIdx}${colIdx}`}
+              onPress={() => placeStone(rowIdx, colIdx)}>
+              <Cell
+                boardDimension={boardDimension}
+                key={`${rowIdx}${colIdx}`}
+                x={rowIdx}
+                y={colIdx}
+                value={boardState[rowIdx][colIdx]}
+                cellSize={cellSize}
+              />
+            </TouchableOpacity>
           );
         }
       );

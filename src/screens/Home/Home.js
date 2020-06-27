@@ -8,11 +8,12 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-const Home = (props) => {
+const Home = props => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainView}>
         <Button onPress={props.onPlay} title={'Player vs Player'} />
+        <Button onPress={props.onPuzzle} title={'Puzzles'} />
         <Text style={styles.text}>Choose board dimension:</Text>
         <View style={styles.buttonRow}>
           <TouchableOpacity

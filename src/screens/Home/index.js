@@ -6,6 +6,10 @@ const HomeScreen = () => {
   const { navigate } = useNavigation();
   const [dimension, setDimension] = useState(9);
 
+  const onPuzzle = useCallback(() => {
+    navigate('Puzzle');
+  }, [navigate]);
+
   const onPlay = useCallback(() => {
     navigate('Game', { boardDimension: dimension });
   }, [dimension, navigate]);
@@ -13,7 +17,8 @@ const HomeScreen = () => {
   const props = {
     dimension,
     setDimension,
-    onPlay
+    onPlay,
+    onPuzzle
   };
   return <Home {...props} />;
 };
