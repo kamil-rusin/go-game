@@ -1,4 +1,4 @@
-package com.primarystructure;
+package com.rngopuzzles;
 
 import android.os.Bundle;
 

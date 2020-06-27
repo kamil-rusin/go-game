@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'PrimaryStructure' do
-  # Pods for PrimaryStructure
+target 'RNGoPuzzles' do
+  # Pods for RNGoPuzzles
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -39,7 +39,7 @@ target 'PrimaryStructure' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
-  target 'PrimaryStructureTests' do
+  target 'RNGoPuzzlesTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -47,10 +47,10 @@ target 'PrimaryStructure' do
   use_native_modules!
 end
 
-target 'PrimaryStructure-tvOS' do
-  # Pods for PrimaryStructure-tvOS
+target 'RNGoPuzzles-tvOS' do
+  # Pods for RNGoPuzzles-tvOS
 
-  target 'PrimaryStructure-tvOSTests' do
+  target 'RNGoPuzzles-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
